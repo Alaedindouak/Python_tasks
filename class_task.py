@@ -19,7 +19,7 @@ def has_equal_diff(arr):
         else : 
             return False 
 
-# print(has_equal_diff([5,10,14,24,30])) 
+print(has_equal_diff([5,10,15,25,30])) 
 
 
 
