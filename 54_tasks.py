@@ -23,7 +23,6 @@ def func_2(x, y):
      которые делятся на 5, но не кратны 3'''
 
 def func_3():    
-    # here I defined the range 4251, to include 4250 as well
     return [number for number in range(1000, 4251) if number % 5 == 0 and number % 3 != 0]     
 
 # print(func_3())
@@ -60,9 +59,10 @@ def func_5(c_degree):
 ''' на вход получает сумму вклада в банк и годовой процент. 
      Вывести на экран сумму вклада через 5 лет.'''
 
-def func_6():
-    pass
-    
+def func_6(amount, per):
+    print('{:.2f}'.format(amount * ( 1 + per/100 )**5))
+   
+# func_6(200000, 2)    
 
 # 7 --
 ''' получает на вход количество недель, месяцев, 
@@ -117,7 +117,7 @@ def func_10(x_1,y_1, x_2, y_2):
 ''' выводит все квадраты натуральных чисел, не превосходящие N, в порядке возрастания'''
 
 def func_11(number):
-    # maybe like this !!
+    # maybe like this !!   
     return [sqs**2 for sqs in range(number) if sqs**2 < number]
    
 
@@ -126,8 +126,10 @@ def func_11(number):
 # 12 --
 ''' находит сумму элементов в указанном срезе (конец включителен) '''
 
-def func_12():
-    pass
+def func_12(ls, slice):
+    return sum(ls[slice[0]:slice[1] + 1])
+
+# print(func_12([1, 5, -1, 9, 0, 2], (2, 5)))  
 
 # 13 --
 ''' возвращает список размера N, заполненного значениями M '''
@@ -173,19 +175,25 @@ def func_16(ls):
 '''determines if the list is symmetric'''
 
 def func_17(ls):
-  pass
-    
-    
+    pass
+  
 # print(func_17([9,8,5,5,8,9]))
 
 
 #18 --
 ''' возвращает строку, в которой удаляются слова, 
      где есть хотя бы одна буква указанная пользователем (*argc)'''
-def func_18(*args):
-    print(args)
 
-# func_18()
+def func_18(str, *args):
+    words = str.split(' ')
+    for i in args:
+        for j in words:
+            for l in range(len(j)):
+                if (j[l] == i):
+                    del words[words.index(j)]
+    return words             
+
+# print(func_18("In the hole in the ground there lived a hobbit",'t', 'h', 'r'))
 
 # 19 -- 
 '''проверяет, является ли строка корректной записью IP-адреса. 
@@ -272,8 +280,10 @@ def func_24(sentence):
 # 25 --
 ''' возвращает три последовательных элемента в списке, сумма которых максимальна'''
 
-def func_25():
+def func_25(ls):
     pass
+
+# print(func_25([1,2,-5,1,4,2]))
 
 # 26 --
 ''' проверяет есть ли в массиве повторяющиеся элементы'''
@@ -286,14 +296,27 @@ def func_26(ls):
 # 27 -- 
 ''' возвращает количество элементов списка, которые отличны от наибольшего элемента не более чем на 10% '''
 
-def func_27():
-    pass
+def func_27(ls):
+    ten_percent=( 10 * max(ls) ) / 100
+    total=[]
+     
+    for i in range(len(ls)):
+        if ls[i] >= max(ls) - ten_percent:
+            total.append(ls[i])
+    return total
+
+# print(func_27([50,40,71,100,95,97,96]))
 
 # 28 --
 ''' на вход получает список C, и меняет знак у элементов, значения которых между A и B '''
 
-def func_28():
-    pass
+def func_28(ls, a, b):
+    for i in range(len(ls)):
+        if ls[i] in range(a, b):
+            ls[i] *= -1
+    return ls
+
+# print(func_28([1,5,-7,13,-1], 2, 11))    
 
 # 29 --
 ''' проверяет одинаковы ли 2 списка '''
@@ -301,7 +324,7 @@ def func_28():
 def func_29(ls_1, ls_2):
     return ls_1 == ls_2
 
-# print(func_29([1,2,4], [1,2,4]))    
+# print(func_29([1,2,4], [3,2,4]))    
 
 # 30 --
 ''' "сжимает" список, то есть перемещает все ненулевые элементы в левую часть списка, 
@@ -333,14 +356,26 @@ def func_31(ls):
 #32 -- 
 ''' находит индексы локальных максимумов списка '''
 
-def func_32():
-    pass
+def func_32(ls):
+    res = sorted(range(len(ls)), key=lambda sub: ls[sub])[-2:]
+    ls.sort(reverse=True)
+    x = (ls[:2])
+    return res, x
+
+# print(func_32([1,2,8,8,5,10,11,0,-1]))
 
 # 33 --
 ''' находит наименьшее расстояние между локальными максимумами списка '''
 
-def func_33():
-    pass
+def func_33(ls):
+    flag = max(ls)
+    x = max(ls)
+    for i in range(len(ls)):
+        if flag - ls[i] < x and flag - ls[i] != 0:
+            x = flag - ls[i]
+    return x
+
+# print(func_33([0,6,1,-1,4,1,-1,0]))
 
 # 34 --
 ''' выводит название месяца по введенному номеру месяца (hint: создать словарь) '''
@@ -396,16 +431,14 @@ def func_36(ls_1, ls_2):
      Удалить старые записи повторяющихся элементов со старыми ключами '''
 
 def func_37(dic):
-    pass
-    # result = {}
-    # for key, value in dic.items():
-    #     print(key, value)
-        # print(key, value)
-    
-    #     if value in result:
-    #         result.setdefault(value, []).append(key)
-    # return result        
-# func_37({1: 'a', 2: 'a', 3: 'a', 4: 'd'})
+    flip = {}
+    for key , value in dic.items():
+        if value not in flip:
+            flip[value] = [key]
+        else:
+            flip[value].append(key)
+    return flip
+
 # print(func_37({1: 'a', 2: 'a', 3: 'a', 4: 'd'}))
 
 # 38 -- 
@@ -421,19 +454,7 @@ def func_38(dic):
      то добавить к существующему элементу этого ключа новое значение '''
 
 def func_39(dic, key=None):
-    key_ls = [key for key in dic.keys()]
-    if key[0] in key_ls:
-        return True
-        
-    # for key in dic.get(item[0]):
-    #     print((key,te))
-    # for k in dic.keys():
-    #     if item[0] == k :
-    #         dic[k].(item[1])
-    # print(dic)        
-    # for i in item:
-    #     print(i)
-    # print(item[0])
+    pass
 
 # print(func_39({1: 'a', 2: 'b', 3: 'c'}, (1, 'ff')))     
 
@@ -441,7 +462,7 @@ def func_39(dic, key=None):
 ''' генерирует словарь следующим образом: на вход функции подаётся число N, 
      от 1 до N генерируются ключи, а значениями является их квадрат (i, i * i) '''
 
-def func_40(n):
+def func_40(n): 
     dic = dict()
     for i in range(1, n + 1):
         dic[i] = i * i
@@ -454,12 +475,210 @@ def func_40(n):
 ''' генерирует список списков (это матрица, число строк N и число столбцов M) 
      и заполняет их случайными целыми числами от 2 до 14  '''
 
-from random import sample
+from random import randrange
 
-def func_41(row, column=0, start=0, end=0):
-   pass
+def func_41(row, column):
+    
+    ls = []
+
+    while row != 0:
+        row -= 1
+
+        ls_x = [randrange(2,15) for c in range(column)]
+        ls.append(ls_x)
+
+    return ls
+    
+# mul_list = func_41(2, 3)
+# print(mul_list)    
+
+# 42 --
+''' находит минимум и максимум матрицы из предыдущей задачи '''
+
+def func_42(ls):
+
+    min = max = ls[0][0]
+
+    for i in range(len(ls)):
+        for j in range(len(ls[i])):
+
+            if min < ls[i][j]:
+                min = ls[i][j]
+
+            elif max > ls[i][j]:
+                max = ls[i][j]
+
+    return min, max            
+
+# print(func_42(mul_list))   
+
+# 43 --
+''' находит максимум матрицы для каждой строки '''
+
+def func_43(matrix):
+    
+    max_elements = []
+    max_elem = 0
+
+    for i in range(len(matrix)):
+        max_elem = matrix[i][0]
+
+        for j in range(len(matrix[i])): 
+
+            if max_elem < matrix[i][j]:
+                max_elem = matrix[i][j]
+        
+        max_elements.append(max_elem)
+
+    return max_elements  
+
+# print(func_43([[2,5,7,6], [8,8,13,5], [9,11,4,8], [8,6,12,5]]))        
+
+
+# 44 --
+''' находит максимум матрицы для каждого столбца '''
+
+def func_44(matrix):
+    
+    max_elements = []
+    max_elem = 0
+
+    for i in range(len(matrix)):
+        max_elem = matrix[0][i]
+
+        for j in range(len(matrix[i])):
             
+            if max_elem < matrix[j][i]:
+                max_elem = matrix[j][i]
 
-# print(func_41(4, 4, 2, 14))             
+        max_elements.append(max_elem)
+    
+    return max_elements
+    
+# print(func_44([[2,5,7,6], [8,8,13,5], [9,11,4,8], [8,6,12,5]]))
+
+# 45 --
+''' находит максимум матрицы для каждого столбца '''
+
+def func_45(matrix):
+    max_element = 0
+    x = 0
+    y = 0
+
+    for i in range(len(matrix)):
+
+        for j in range(len(matrix[i])):
+
+            if matrix[i][j] > max_element:
+                max_element = matrix[i][j]
+
+                x = i
+                y = j
+
+    matrix[x][y] = 0
+
+    return matrix
+        
+# print(func_45([[2,5,7,6], [8,8,13,5], [9,11,4,8], [8,6,12,5]]))    
+    
+# 46 --
+''' заполняет 0 содержимое матрицы и 1 границы матрицы '''
+
+def func_46(matrix):
+
+    for i in range( len(matrix) ):
+        for j in range(len( matrix[i] )):
+
+            if i == 0 or j == 0 or i == len(matrix[i]) - 1 or j == len(matrix[i]) - 1:
+                matrix[i][j] = 1
+            else:
+                matrix[i][j] = 0
+
+    print(matrix)                
+ 
+
+# func_46([[2,5,7,6], [8,8,13,5], [9,11,4,8], [8,6,12,5]])
+
+# 47 --
+''' находит наиболее частое значение в матрице '''
+
+def func_47(matrix):
+
+    numbers= []
+    num = 0
+    counter = 0
+
+    for i in range( len(matrix) ) :
+        for j in range( len( matrix[i] ) ) :
+
+           numbers.append( matrix[i][j] ) 
+
+           for n in numbers:
+                frequency = numbers.count(n)
+
+                if frequency > counter:
+                    counter = frequency
+                    num = n
+ 
+
+    return num
+       
+
+# print(func_47( [[2,5,7,6], [8,8,13,5], [9,11,4,8], [8,6,12,5]] ))
+
+# 48 --
+''' меняет местами строки матрицы указанные пользователем '''
+
+def func_48(matrix, a, b):
+    
+    temp_row = matrix[a]
+    matrix[a] = matrix[b]
+    matrix[b] = temp_row
+
+    return matrix
+
+
+# print(func_48( [[2,5,7,6], [8,8,13,5], [9,11,4,8], [8,6,12,5]], 0, 2))
+
+# 49 --
+''' меняет местами столбцы матрицы указанные пользователем '''
+
+def func_49(matrix, a, b):
+
+    for i in range( len(matrix) ):
+        temp_column = matrix[i][a]
+        matrix[i][a] = matrix[i][b]
+        matrix[i][b] = temp_column
+
+    return matrix        
+
+# print(func_49( [[2,5,7,6], [8,8,13,5], [9,11,4,8], [8,6,12,5]], 1, 2))
+
+# 50 --
+''' на вход получает два списка, и если они одинаковой длины, 
+     то возвращает список из произведения элементов друг на друга, 
+     иначе объединяет в один список и возвращает разницу всех элементов '''
+
+def func_50(ls_1, ls_2):
+
+    if len( ls_1 ) == len( ls_2 ):
+        return [num_1 * num_2 for num_1, num_2 in zip(ls_1, ls_2)]
+    else:
+        return [*ls_1, *ls_2], len(ls_1) - len(ls_2)
+
+# print(func_50([1,2,1,0], [5,-2, 0]))   
+
+# 51 -- 
+''' удаляет строку матрицы, в которой количество нулей максимально '''
+
+def func_51(matrix):
+    for i, v in enumerate(matrix):
+        print(v) 
+          
+
+func_51( [[2,5,0,6], [8,0,13,0], [9,11,4,8], [8,6,12,5]] )
+# print(func_51([[2,5,0,6], [8,0,13,0], [9,11,4,8], [8,6,12,5]]))
+
+
 
 
