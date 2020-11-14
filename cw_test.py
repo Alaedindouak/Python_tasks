@@ -3,8 +3,8 @@
 def merge_list(*args):
 
     # just here I couldn't make else statement
-    # return [item for items in args if isinstance(items, (tuple, list, set)) for item in items]
-   
+    # return [item for items in args if isinstance(items, (tuple, list, set)) for item in items] 
+       
     ls = []
     for items in args:
         if isinstance(items, (tuple, list, set)):

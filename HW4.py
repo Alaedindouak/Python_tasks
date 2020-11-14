@@ -117,7 +117,7 @@ def func_10(x_1,y_1, x_2, y_2):
 ''' выводит все квадраты натуральных чисел, не превосходящие N, в порядке возрастания'''
 
 def func_11(number):
-    # maybe like this !!   
+    # maybe like that !!   
     return [sqs**2 for sqs in range(number) if sqs**2 < number]
    
 
@@ -175,7 +175,12 @@ def func_16(ls):
 '''determines if the list is symmetric'''
 
 def func_17(ls):
-    pass
+    b = list(reversed(ls))
+    print(b)
+    z = True
+    if ls != b:
+        return False
+    return z
   
 # print(func_17([9,8,5,5,8,9]))
 
@@ -281,7 +286,9 @@ def func_24(sentence):
 ''' возвращает три последовательных элемента в списке, сумма которых максимальна'''
 
 def func_25(ls):
-    pass
+    ls.sort(reverse=True)
+    x = (ls[:3])
+    return x
 
 # print(func_25([1,2,-5,1,4,2]))
 
@@ -453,8 +460,13 @@ def func_38(dic):
 ''' добавляет пару ключ:значение в словарь, и если есть такой ключ, 
      то добавить к существующему элементу этого ключа новое значение '''
 
-def func_39(dic, key=None):
-    pass
+def func_39(dic, key):
+    aset = set(dic)
+    blist = list(key)
+    for name in aset.intersection(key):
+        for i in range(1,len(blist)):
+            dic[name]= dic[name],blist[i]
+    return dic
 
 # print(func_39({1: 'a', 2: 'b', 3: 'c'}, (1, 'ff')))     
 
@@ -672,13 +684,74 @@ def func_50(ls_1, ls_2):
 ''' удаляет строку матрицы, в которой количество нулей максимально '''
 
 def func_51(matrix):
-    for i, v in enumerate(matrix):
-        print(v) 
+    a = []
+    n = m = z = 0
+    
+    for i in range(len(matrix)):
+        for j in range(len(matrix[i])):
+            n = 0
+            for k in range(len(matrix[j])):
+                if matrix[j][k] == 0 :
+                    n += 1
+                    if m < n :
+                        m = n
+                        z = j
+        if(i != z):
+            a.append(matrix[i])
+    return a
           
-
-func_51( [[2,5,0,6], [8,0,13,0], [9,11,4,8], [8,6,12,5]] )
 # print(func_51([[2,5,0,6], [8,0,13,0], [9,11,4,8], [8,6,12,5]]))
 
+# 52 -- 
+''' если на вход получает строку, то сжимает её, создавая tuple из количества повторяений СОХРАНЯЯ порядок. 
+     Если на вход приходит кодированный список из повторение-символ, то верните восстанавленную строку '''
+
+def func_52(ls):
+
+    s = ''
+    frequency = {}
+
+    if(type(ls) == str):
+        tuple = ()
+        for i in ls:
+            if i in frequency:
+                frequency[i] += 1
+            else:
+                frequency[i] = 1
+
+        list1 = [(v, k) for k, v in frequency.items()]
+
+        for i in list1:
+            tuple += (i,)
+        return tuple
+    else: 
+        for i in ls:
+            for j in range(i[0]):
+                s += i[1]
+    return s
+
+# print(func_52([(1, 'h'), (4, 'a'), (3, 'h')]))
+
+# 53 -- 
+''' из последовательности tuple (числитель, знаменатель) возвращает результат (числитель, знаменатель) перемножения.
+     Если есть возможность сократить дробь до целых чисел -- сократите (как в примере до 5/8) '''     
+
+from fractions import Fraction
+
+def func_53(tuple):     
+    answer = 1
+    for i in tuple:
+        answer *= Fraction(i[0], i[1])
+    return answer
 
 
+# print(func_53(((1, 2), (3, 4), (10, 6))))
 
+# 54 -- 
+''' выводит на экран стоимость вашей покупки в корзине. Цены указываются отдельным словарём. 
+     Отдельный словарь вашей корзины (как в примере) '''
+
+def func_54(prices, cart):     
+    return sum(cart[k] * prices[k] for k in cart)
+
+# print(func_54({'apple': 0.7, 'egg': 0.5,'cola': 2, 'mango': 5}, {'apple': 2, 'egg': 10, 'mango': 3}))

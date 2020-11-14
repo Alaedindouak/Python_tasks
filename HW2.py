@@ -1,29 +1,34 @@
-with open('book.txt', 'r') as book_file:
+with open('book.txt', 'r+') as book_file:
     
     words_list = []
     count_letters = 0
 
 # 1. number of words
+
     for words in book_file:
         words_list.extend(words.split())
 
-    print(">> number of words is ->", len(words_list))   
+    # print(">> number of words is ->", len(words_list))   
 
 # 2. average word length of text
-    # print(len(words_list))
-# 3. number of letters
-    for characters in words_list:
-        count_letters += len(characters) 
 
-    print(">> number of letters is ->", count_letters) 
+    for character in words_list:
+        count_letters += len(character)
+    # print(">> number of words is ->",  count_letters / len(words_list))
+
+# 3. number of letters
+
+    # print(">> number of letters is ->", count_letters) 
 
 # 4. top 10 words by length
+
     # words_list.sort(key=len, reverse=True)
     # print(">> top 10 words by length are : ")
     # for word in words_list[:10]:
-    #     print(" -> ", word)   
+        # print(" -> ", word) 
 
 # 5. top 10 most frequent letters
+
     # letters_dic = {}
     # counter = 0
     # for word in words_list:
@@ -40,6 +45,7 @@ with open('book.txt', 'r') as book_file:
 
 
 # 6. number of lines (these are paragraphs)
+    
 # 7. replace 'Анна Павловна' in the whole text with 'Anna Pavlovna' (save changes to the same file)
     
     
